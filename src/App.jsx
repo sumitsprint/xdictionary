@@ -18,7 +18,7 @@ function App() {
 ]);
 const handleSearch = () =>{
   if(!query.trim()){
-    setResult("");
+    setResult("Word not found in the dictionary.");
     return;
   }
   const found = dictionary.find((item) => item.word.toLowerCase() == query.trim().toLowerCase());
