@@ -1,42 +1,287 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* ===== Dark Tokens ===== */
+:root{
+  --bg:#0d1117;
+  --panel:#161b22;
+  --text:#f0f6fc;
+  --muted:#8b949e;
+  --border:#30363d;
+  --focus:#58a6ff;
+  --primary:#1f6feb;
+  --primary-hover:#388bfd;
+  --ok:#7ee787;
+  --shadow:0 10px 30px rgba(0,0,0,.45);
+}
+
+/* ===== Page ===== */
+html,body{height:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  display:grid;
+  place-items:center;
+  padding:32px;
+  box-sizing:border-box;
+}
+
+/* ===== Card ===== */
+body > div:first-of-type{
+  width:min(720px,94vw);
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:20px;
+  box-shadow:var(--shadow);
+  padding:26px 24px;
+  box-sizing:border-box;
+  text-align:center;                 /* lets input+button sit side-by-side */
+}
+
+/* ===== Title ===== */
+body > div:first-of-type > h1{
+  margin:0 0 14px 0;
+  font-weight:650;
+  letter-spacing:.3px;
+}
+
+/* ===== Input BAR (strong, finished) ===== */
+body > div:first-of-type > input[type="text"]{
+  display:inline-block;
+  width:calc(100% - 170px);          /* room for the button */
+  max-width:520px;
+  min-width:220px;
+  vertical-align:middle;
+
+  background:#0f1622;
+  color:var(--text);
+  border:1.8px solid var(--border);
+  border-right:none;                  /* seam with the button */
+  border-radius:12px 0 0 12px;        /* left pill */
+  padding:14px 16px;
+  font-size:1rem;
+  outline:none;
+  transition:border-color .25s ease, box-shadow .25s ease, background .25s ease, transform .1s ease;
+  box-shadow:inset 0 0 8px rgba(255,255,255,.03);
+}
+body > div:first-of-type > input[type="text"]::placeholder{ color:#7a828e; }
+body > div:first-of-type > input[type="text"]:focus{
+  border-color:var(--focus);
+  box-shadow:0 0 0 3px rgba(88,166,255,.28);
+  background:#111a28;
+  transform:translateY(-1px);
+}
+body > div:first-of-type > input[type="text"]::selection{
+  background:rgba(88,166,255,.35);
+}
+
+/* ===== Button (finished, tactile) ===== */
+body > div:first-of-type > button{
+  display:inline-block;
+  vertical-align:middle;
+
+  background:var(--primary);
+  color:#fff;
+  border:none;
+  border-radius:0 12px 12px 0;        /* right pill */
+  padding:14px 22px;
+  font-weight:700;
+  font-size:1rem;
+  cursor:pointer;
+  transition:background .2s ease, transform .06s ease, box-shadow .2s ease, filter .2s ease;
+  box-shadow:0 6px 14px rgba(31,111,235,.25);
+  position:relative;
+}
+
+/* Magnifying icon without changing HTML */
+body > div:first-of-type > button::before{
+  content:"🔍";
+  margin-right:8px;
+  font-size:1rem;
+  vertical-align:baseline;
+}
+
+body > div:first-of-type > button:hover{ background:var(--primary-hover); }
+body > div:first-of-type > button:active{ transform:scale(.98); }
+body > div:first-of-type > button:focus-visible{
+  outline:none; box-shadow:0 0 0 3px rgba(88,166,255,.35);
+}
+body > div:first-of-type > button:disabled{
+  opacity:.55; cursor:not-allowed; filter:saturate(.7);
+  box-shadow:none;
+  border-left:1px solid var(--border); /* seam stays visible when disabled */
+}
+
+/* Keep seam clean when the input is focused but button disabled */
+body > div:first-of-type > input[type="text"]:focus + button:disabled{
+  border-left-color:transparent;
+}
+
+/* ===== Definition Panel ===== */
+body > div:first-of-type > div{
+  margin:16px auto 0;
+  background:#0f1622;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:14px 16px;
+  box-shadow:inset 0 0 10px rgba(255,255,255,.04);
+  text-align:left;
+  max-width:640px;
+}
+body > div:first-of-type > div > h3{
+  margin:0 0 8px 0;
+  color:var(--muted);
+  font-size:1rem;
+  font-weight:600;
+}
+body > div:first-of-type > div > p{
+  margin:0;
+  min-height:1.6rem;
+  font-size:1.05rem;
+  line-height:1.5;
+}
+body > div:first-of-type > div > p:not(:empty){
+  border-left:3px solid var(--ok);
+  padding-left:10px;
+}
+
+/* ===== Mobile ===== */
+@media (max-width:560px){
+  /* stack neatly */
+  body > div:first-of-type > input[type="text"],
+  body > div:first-of-type > button{
+    width:100%;
+    max-width:none;
+    border-radius:12px;
+    border-right:1.8px solid var(--border);
+  }
+  body > div:first-of-type > button{
+    margin-top:10px;
+  }
+}
+/* ===== Scope to your Dictionary App container (no JS change) ===== */
+#root div:has(> h1 + input[type="text"] + button) {
+  width: min(720px, 94vw);
+  margin: 32px auto;
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.45);
+  padding: 26px 24px;
+  color: #f0f6fc;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+/* Title */
+#root div:has(> h1 + input[type="text"] + button) > h1 {
+  margin: 0 0 14px 0;
   text-align: center;
+  font-weight: 650;
+  letter-spacing: .3px;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+/* ===== Input (left pill) ===== */
+#root div:has(> h1 + input[type="text"] + button) > input[type="text"] {
+  display: inline-block;
+  width: calc(100% - 170px);
+  max-width: 520px;
+  min-width: 220px;
+  vertical-align: middle;
+
+  background: #0f1622;
+  color: #f0f6fc;
+  border: 1.8px solid #30363d;
+  border-right: none;
+  border-radius: 12px 0 0 12px;
+  padding: 14px 16px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color .25s, box-shadow .25s, background .25s, transform .1s;
+  box-shadow: inset 0 0 8px rgba(255,255,255,.03);
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+#root div:has(> h1 + input[type="text"] + button) > input[type="text"]::placeholder {
+  color: #7a828e;
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+#root div:has(> h1 + input[type="text"] + button) > input[type="text"]::selection {
+  background: rgba(88,166,255,.35);
+}
+#root div:has(> h1 + input[type="text"] + button) > input[type="text"]:focus {
+  border-color: #58a6ff;
+  box-shadow: 0 0 0 3px rgba(88,166,255,.28);
+  background: #111a28;
+  transform: translateY(-1px);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+/* ===== Button (right pill) ===== */
+#root div:has(> h1 + input[type="text"] + button) > button {
+  display: inline-block;
+  vertical-align: middle;
+
+  background: #1f6feb;
+  color: #fff;
+  border: none;
+  border-radius: 0 12px 12px 0;
+  padding: 14px 22px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background .2s, transform .06s, box-shadow .2s, filter .2s;
+  box-shadow: 0 6px 14px rgba(31,111,235,.25);
+  position: relative;
+}
+#root div:has(> h1 + input[type="text"] + button) > button:hover { background: #388bfd; }
+#root div:has(> h1 + input[type="text"] + button) > button:active { transform: scale(.98); }
+#root div:has(> h1 + input[type="text"] + button) > button:focus-visible {
+  outline: none; box-shadow: 0 0 0 3px rgba(88,166,255,.35);
+}
+#root div:has(> h1 + input[type="text"] + button) > button:disabled {
+  opacity: .55; cursor: not-allowed; filter: saturate(.7); box-shadow: none;
+  border-left: 1px solid #30363d; /* keeps the seam when disabled */
+}
+
+/* Add a search icon without changing HTML */
+#root div:has(> h1 + input[type="text"] + button) > button::before {
+  content: "🔍";
+  margin-right: 8px;
+  font-size: 1rem;
+}
+
+/* ===== Definition panel ===== */
+#root div:has(> h1 + input[type="text"] + button) > div {
+  margin: 16px auto 0;
+  background: #0f1622;
+  border: 1px solid #30363d;
+  border-radius: 14px;
+  padding: 14px 16px;
+  box-shadow: inset 0 0 10px rgba(255,255,255,.04);
+  text-align: left;
+  max-width: 640px;
+}
+#root div:has(> h1 + input[type="text"] + button) > div > h3 {
+  margin: 0 0 8px 0;
+  color: #8b949e;
+  font-size: 1rem;
+  font-weight: 600;
+}
+#root div:has(> h1 + input[type="text"] + button) > div > p {
+  margin: 0;
+  min-height: 1.6rem;
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+#root div:has(> h1 + input[type="text"] + button) > div > p:not(:empty) {
+  border-left: 3px solid #7ee787;
+  padding-left: 10px;
+}
+
+/* ===== Mobile stack ===== */
+@media (max-width: 560px){
+  #root div:has(> h1 + input[type="text"] + button) > input[type="text"],
+  #root div:has(> h1 + input[type="text"] + button) > button {
+    width: 100%;
+    max-width: none;
+    border-radius: 12px;
+    border-right: 1.8px solid #30363d;
   }
-  to {
-    transform: rotate(360deg);
-  }
+  #root div:has(> h1 + input[type="text"] + button) > button { margin-top: 10px; }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}

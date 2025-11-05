@@ -43,7 +43,7 @@ const onKeyDown = (e) => {
         <input onChange = {(e) => setQuery(e.target.value)} type = "text" value ={query}  placeholder="Search for a word"
         onKeyDown={onKeyDown}
         />
-        <button onClick={handleSearch} disabled= {query.trim().length == 0}>Search</button> 
+        <button onClick={handleSearch} >Search</button> 
         <div>
           <h3>Definition:</h3>
           <p>
