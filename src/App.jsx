@@ -1,34 +1,55 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  // const [count, setCount] = useState(0)
+  const [query, setQuery] = useState("");
+  const [result, setResult] = useState("");
+  const [dictionary] = useState(
+[
+
+    { word: "React", meaning: "A JavaScript library for building user interfaces." },
+
+    { word: "Component", meaning: "A reusable building block in React." },
+
+    { word: "State", meaning: "An object that stores data for a component." }
+
+]);
+const handleSearch = () =>{
+  if(!query.trim()){
+    setResult("");
+    return;
+  }
+  const found = dictionary.find((item) => item.word.toLowerCase() == query.trim().toLowerCase());
+  if(found){
+    setResult(found.meaning);
+  }
+  else{
+    setResult("Word not found in the dictionary.");
+  }
+}
+const onKeyDown = (e) => {
+  if(e.key === "Enter") {
+    e.preventDefault();
+    handleSearch();
+  }
+}
 
   return (
-    <>
+   
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+        <h1>Dictionary App</h1>
+        <input onChange = {(e) => setQuery(e.target.value)} type = "text" value ={query}  placeholder="Search for a word"
+        onKeyDown={onKeyDown}
+        />
+        <button onClick={handleSearch} disabled= {query.trim().length == 0}>Search</button> 
+        <div>
+          <h3>Definition:</h3>
+          <p>
+{result}
+          </p>
+          </div>     </div>
   )
 }
 
